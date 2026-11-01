@@ -45,12 +45,18 @@ mesh-llm plugins install Mesh-LLM/agents
 
 The installed plugin executable is `agents`.
 
+## Compatibility
+
+Version 0.1.1 requires a MeshLLM host that supports plugin protocol 3.
+Protocol 2 hosts cannot load this version. The plugin SDK is pinned to MeshLLM
+commit `efd30516fd2cd92ac132dfd7b8341d24d412ee9c` for reproducible builds.
+
 ## Build
 
 Build the CLI:
 
 ```bash
-cargo build -p mesh-agents
+cargo build -p mesh-agents --locked
 ```
 
 Release builds publish native archives for Linux, macOS, and Windows from this
@@ -203,9 +209,14 @@ agents skills status
 
 Releases are built by GitHub Actions. Push a version tag:
 
+Compatibility releases in the 0.1.x series come from `release/0.1`.
+Check out the validated release commit from that branch before creating its
+tag. `main` contains unreleased features and is not the source for these patches.
+
 ```bash
-git tag v0.1.0
-git push origin v0.1.0
+git switch release/0.1
+git tag v0.1.1
+git push origin v0.1.1
 ```
 
 Or run the `Release` workflow manually with a `v*` version. The workflow builds
