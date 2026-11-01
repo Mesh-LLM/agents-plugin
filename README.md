@@ -219,8 +219,11 @@ git tag v0.1.1
 git push origin v0.1.1
 ```
 
-Or run the `Release` workflow manually with a `v*` version. The workflow builds
-and uploads:
+Or run the `Release` workflow manually with a `v*` version. For a 0.1.x
+compatibility release, select `release/0.1` in the workflow branch selector and
+verify that its head is the validated release commit. The version input sets
+the release tag name; it does not pin the checkout to that tag. The workflow
+builds the selected branch and uploads:
 
 - `agents-x86_64-unknown-linux-gnu.tar.gz`
 - `agents-aarch64-apple-darwin.tar.gz`
