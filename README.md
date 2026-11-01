@@ -219,11 +219,12 @@ git tag v0.1.1
 git push origin v0.1.1
 ```
 
-Or run the `Release` workflow manually with a `v*` version. For a 0.1.x
-compatibility release, select `release/0.1` in the workflow branch selector and
-verify that its head is the validated release commit. The version input sets
-the release tag name; it does not pin the checkout to that tag. The workflow
-builds the selected branch and uploads:
+To recover an interrupted 0.1.x compatibility release, select the reviewed
+`release/0.1` branch in the `Release` workflow and enter the existing `v*` tag.
+The selected branch supplies the workflow; builds check out
+`refs/tags/<version>`. Confirm that the tag still points to the validated
+release commit and no release assets have been published before running it
+manually. macOS archives use the ARM64 `macos-15` runner. The workflow uploads:
 
 - `agents-x86_64-unknown-linux-gnu.tar.gz`
 - `agents-aarch64-apple-darwin.tar.gz`

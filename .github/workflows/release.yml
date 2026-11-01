@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: "Release version, for example v0.1.0"
+        description: "Existing release tag, for example v0.1.1"
         required: true
         type: string
 
@@ -29,7 +29,7 @@ jobs:
             archive: agents-x86_64-unknown-linux-gnu.tar.gz
             package: tar
           - name: macos-aarch64
-            os: macos-14
+            os: macos-15
             build_binary: agents
             plugin_binary: agents
             archive: agents-aarch64-apple-darwin.tar.gz
@@ -44,6 +44,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'workflow_dispatch' && format('refs/tags/{0}', inputs.version) || github.ref }}
 
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
