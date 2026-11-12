@@ -12,8 +12,17 @@ concurrency:
 
 jobs:
   rust:
-    name: Rust
-    runs-on: ubuntu-latest
+    name: Rust (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+          - ubuntu-24.04-arm
+          - macos-15
+          - windows-latest
+          - windows-11-arm
     steps:
       - name: Checkout
         uses: actions/checkout@v4
